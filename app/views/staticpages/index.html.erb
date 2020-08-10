@@ -1,0 +1,15 @@
+<h1>Photos</h1>
+<%= form_with url: staticpages_path, local: true, method: :get do |form| %>
+  <%= form.label "Flickr ID:" %>
+  <%= form.text_field :flickr_id ,:required => 'required'%>
+  <%= form.submit "Search" %>
+<% end %>
+<% if params[:flickr_id]%>
+  <%if @photos.any?%>
+    <% @photos.each do |photo| %>
+      <%= image_tag photo.source_url, size: "#{photo.width}x#{photo.height}"%>
+    <%end%>
+  <%else%>
+    <h3>No photos match search...</h3>
+  <%end%>
+<%end%>
